@@ -64,7 +64,7 @@
 												</p>
 											</div>
 											<div class="col-6 col-12-small">
-												<iframe width="560" height="315" src="https://www.youtube.com/embed/GUcVHez52Ro" frameborder="0" allowfullscreen></iframe>
+												<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/GUcVHez52Ro" frameborder="0" allowfullscreen></iframe>
 											</div>
 										</div>
 										
@@ -86,7 +86,7 @@
 												</ul>
 												
 											</div>
-											<div class="col-5 col-12-small">
+											<div class="col-6 col-12-small">
 												<span class="image fit"><img src="images/clothfeatures.png" alt="" /></span>
 											</div>
 											<!-- Break -->
@@ -98,6 +98,76 @@
 									<h2 id="design">Design and Development</h2>
 
 									<!-- Elements -->
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<h3>Cloth Model</h3>
+											<p>The cloth simulation is based on mass spring system, with 3 types of spring-drag pairs shown by the graph on the right:
+											</p>
+										</div>
+										<div class="col-6 col-12-small">
+											<span class="image fit"><img src="images/mass-spring.png" alt="" /></span>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<h3>Handling Collisions and Pins</h3>
+											<p>I implemented GPU based collision detection using ray-object intersection detection. 
+												It currently supports unity's inherent sphere objects and can read the transform automatically from the sphere.
+												The ray is derived from the current and next position of a vertex. If the ray reaches to the inside of the sphere, I calculate P and bring the vertex back to P. I also reflect the velocity based on surface normal and multiply with Cor for energy loss; Pins are special spheres that can fix the position of vertices within it. With Pins I can achieve the flag effect easily. 
+											</p>
+										</div>
+										<div class="col-6 col-12-small">
+											<span class="image fit"><img src="images/raysphereisect1.png" alt="" /></span>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<h3>Wind Models</h3>
+											<p>I also implemented wind resistance to the cloth based on the aerodynamics equations,where the velocity is the relative velocity between the vertex and the wind, and the A value is the surface area x sine of the wind angle. The parameter WindVelocity specifies the to properties.
+											</p>
+										</div>
+										<div class="col-6 col-12-small">
+											<span class="image fit"><img src="images/drageq.gif" alt="" /></span>
+										</div>
+									</div>
+
+									<div >
+										<h3>Integrators</h3>
+										<p>I implemented four different integrators: Euler, Implicit Euler, Leap Frog and Verlet
+
+												While all the other three works fine, the Euler has random bugs. I located it at the vertex (0,0,0) in local space. I found I have to put a pin or a collider there (basically to either remove it from integration process or push it aside to make the value non-zero). Otherwise, the values will quickly become NaN. I suspect there is some divide by zero bug, but I still have not locate it. (GPU program is too hard to debug as I'll mention later.)
+										</p>
+
+									</div>
+
+
+									<div >
+										<h3>GPU Parallelization</h3>
+										<p>Unity uses "Compute Shader" for GPU coding and use "Compute Buffer" for GPU-CPU communication. Unlike "Surface Shaders" that only run within a render pipeline, the Compute Shader allows us to execute whatever code we want on GPU. As Unity is notoriously infamous for its poor documentation and it was the first time for me to use it, I went through all the videos and forums for tutorials, and also read through a bunch of GPU codes on Github for reference.... </p>
+										<p>
+											On CPU side, it initializes the mesh and the parameters, packs them up and sends the data to GPU for calculation. Then it retrieves the data to update the mesh. 
+											
+											On GPU side, I created three Kernels: the cloth model kernel, the wind resistance kernel and the integrator kernel, where the integrator kernel also handles collisions. The reason for that is the wind resistance kernel requires different number of threads (#triangles) than the other two (#vertices).
+										</p>
+										<p>
+
+											For buffers, I created position buffer, force buffer, velocity buffer and triangle buffer for each type of data, Also Collider and pin buffer to dynamically change the state of colliders and pins in runtime. 
+											<br>
+											As the GPU program knows only the "current state" of vertices, I also added a custom buffer for storing preview state of either acceleration or position required by leap-frog and Verlet integrators.</p>
+
+										<p>
+											
+											GPU programs are hard to code but harder to debug, as you can do print on GPU side, it does not have memory protection and not telling you about segment fault sometimes.... what's worse, there are lots of floating-point errors and corner cases..... I have to do static analysis and figure out the cause of the bug manually.
+
+											<br>
+											
+											I found I have a lot of if/else in my code but I heard it's not a good practice to use them in GPU code. So, to further optimize the code I tried to limit the use of if/else, or use if {...} return; instead of if{...}else{...}return. It is because, after some research I found the reason for not using if/else is that GPU does not do branching, a thread entering the "else" part will wait for others to finish executing the "if" part, the others will wait the thread again for the "else" execution. Therefore using if/else lowers the performance by half but only having a if{}return is fine, as the threads do not need to wait each other in turns.
+										</p>
+
+									</div>
 
 				<!-- Footer -->
 					<footer id="footer">
