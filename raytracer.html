@@ -60,7 +60,7 @@
 													<li>Ray properties and methods</li>
 													<li>Transforms: translate, scale and rotation</li>
 													<li>Objects: Sphere, Quads and Mesh (triangles) with corresponding properties: normal, uv...</li>
-													<li>Materials: Lambert, Dielectric, Metal, Phong, Blinn-Phong, Oren-Nayar, Beckmann</li>
+													<li>Materials and Microfacet BRDF Model: Lambert, Dielectric, Metal, Phong, Blinn-Phong, Oren-Nayar, Beckmann</li>
 												</ul>
 											</div>
 											<div class="col-4 col-12-small">
@@ -90,21 +90,57 @@
 
 									<h2>Feature Demo</h2>
 
+									<style>
+										.image-container {
+										  position: relative;
+										  display: inline-block;
+										}
+									  
+										.caption {
+										  position: absolute;
+										  bottom: 0;
+										  left: 0;
+										  width: 100%;
+										  background-color: rgba(0, 0, 0, 0.7);
+										  color: #fff;
+										  padding: 10px;
+										  font-size: 14px;
+										  text-align: center;
+										  opacity: 0;
+										}
+
+										.image:hover {
+											.caption{
+												opacity: 1;
+											}
+										}
+									  </style>
 
 									<div class="box alt">
 										<div class="row gtr-50 gtr-uniform">
 											
 											<div class="col-4">
-												<span class="image fit"><img src="images/raytracer/06_cornell-box.jpg" alt="" /></span>
+												<span class="image fit">
+													<img src="images/raytracer/06_cornell-box.jpg" alt="" />
+													<div class="caption">MIS+NEE Integrator</div>
+												</span>
 											</div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/lake_bg-ref-1024spp.jpg" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/marble-ref.png" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/uv.png" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/05_quad-light.jpg" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/forward-cornell-box-1024-spp.jpg" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/cpr-2023-05-02-15-38-46.png" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/take0.png" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="images/raytracer/raytracer-layer-eval.png" alt="" /></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/lake_bg-ref-1024spp.jpg" alt="" />
+												<div class="caption">Ambient Light and Background Mapping</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/marble-ref.png" alt="" />
+												<div class="caption">Procedural Textures</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/uv.png" alt="" />
+												<div class="caption">UV Mapping</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/05_quad-light.jpg" alt="" />
+												<div class="caption">Ray Tracing Basics</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/forward-cornell-box-1024-spp.jpg" alt="" />
+												<div class="caption">Volumetric Rendering</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/cpr-2023-05-02-15-38-46.png" alt="" />
+												<div class="caption">Microfacet Surface BRDFs</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/take0.png" alt="" />
+												<div class="caption">BSSRDF</div></span></div>
+											<div class="col-4"><span class="image fit"><img src="images/raytracer/raytracer-layer-eval.png" alt="" />
+												<div class="caption">Layered Materials</div></span></div>
 										</div>
 									</div>
 
