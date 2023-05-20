@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Kris' Portfolio Site</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="index.html" class="logo"><strong>Kris'</strong> <span>Portfolio Site</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="bio.html">About Meee</a></li>
+							<li><a href="https://www.instagram.com/kasumiii_art">Instagram</a></li>
+							<li><a href="mailto:krischen.nekolabs@gmail.com">Contact</a></li>
+						</ul>
+						<!-- <ul class="actions stacked">
+							<li><a href="#" class="button primary fit">Get Started</a></li>
+							<li><a href="#" class="button fit">Log In</a></li>
+						</ul> -->
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>Machine Learning Based Facial Motion Capture</h1>
+									</header>
+
+									<!-- Content -->
+										<!-- <h2 id="content">Introduction</h2>
+										<p>This was originally the mini-project 2 of my course 15664: Technical Animation taken at CMU. 
+											Instead of simply making a demo in AMC Viewer, I decided to take this chance to make an actual cloth simulation system usable for my future games. 
+										</p> -->
+										<h2 id="content">Introduction</h2>
+										
+
+										<div class="row">
+											<div class="col-6 col-12-small">
+												<h3>Intro</h3>
+												<p>This was the final project for the course 15-664: Technical Animation, at CMU. In this project, I developed a Blender 	Add-on that enables users to animate facial expressions for characters. 
+													<br>
+													With this Add-on, users can create the character's facial animation by connecting a rigged model to it and utilizing their laptop's camera to capture their own facial movements and expressions with our Add-on's built-in neural network.
+													<br> 
+													Our Add-on will retarget the user's facial expressions to the character in real-time using our retargeting algorithm. I created various features including head movement, eyelid movement, brow movement, jaw and lip movements… Additionally, I have included various parameters that users can customize to tailor the Add-on's functionality to their liking.
+												</p>
+											</div>
+											<div class="col-6 col-12-small">
+												<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/37cd9tCm71I" frameborder="0" allowfullscreen></iframe>
+											</div>
+										</div>
+										
+										<hr>
+										<h2>Motivation</h2>
+
+										<div >
+											<div>
+												<h4>The impact of Artificial Intelligence on art and technical artists</h4>
+												<p>In recent years, there has been a trend towards using AI in the art pipeline and art asset creation for animation. This trend has been driven by the emergence of powerful AI models such as DALLE, MidJourney, GPT-3, and Stable Diffusion, which have demonstrated their ability to generate highly realistic and detailed images and animations.</p>
+												<P>The use of AI in the art pipeline and art asset creation for animation has great potential to streamline the production process, increase efficiency, and reduce costs. Therefore, I decided to take this project as a first step to my further research on the combination of Artificial Intelligence and traditional work of an animator and technical artist.</P>
+											</div>
+
+											<div >
+												<h4>The importance of Facial Animation in Games</h4>
+												<p>Facial expression animation plays a crucial role in the games, films and other types of media as they bring characters to life and help viewers and players connect with them on a deeper emotional level. It can enhance the storytelling experience by allowing characters to express their thoughts and feelings nonverbally, adding nuance and depth to their interactions, leading to more immersive gameplay and a deeper connection to the story. Traditionally, animating facial expressions was a time-consuming process using keyframing or motion capture. However, with deep learning and face landmark detection, animators can now create highly realistic and dynamic facial animations more easily. This approach provides more precise control and reduces manual work. It also allows for live-streaming a character online with the performer in the background, as seen in the rise of the "Virtual Youtuber" (Vtuber) industry, such as Hololive.</p>
+												<p>
+													Therefore, I decided to take the chance to learn, and develop my understanding in the workflow for facial expression animation. Creating an actual tool for such animation is a great practice and test of my learning.
+												</p>
+											</div>
+
+											<div>
+												<h4>Technical Artist's role in Art Pipeline and Tool Creation</h4>
+												<p>Art pipeline and art tool creation is also an essential skill for technical artists. Therefore I decided to take the chance to study the technical details of 3D modeling software Blender and Blender Python scripting API. Creating an Add-on for blender is a great way to practice the knowledge I learned.</p>
+												<p>Moreover, as an independent game developer, I commonly found that there are few community-based facial animation tools for independent game studios to use. Therefore, I want to build some foundations for an open-source facial animation tool for people to contribute and use. </p>
+											</div>
+											<!-- Break -->
+
+										</div>
+
+									<hr>
+
+									<h2>Technical Overview</h2>
+
+									<div class="row">
+										<div class="col-4 col-12-medium">
+											<h3>AI detection module. </h3>
+											<p>The module is used to capture realtime landmark on faces. It can access the camera of the user's device and generates 68 facial landmark following the Dlib standards, as well as head pose and gaze direction, as the data source for control the caracter's face model.</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<h3>Communication module. </h3>
+											<p>The module is to enable communication between machine learning models and Blender. I used socket communication and  implemented a protocol for the communication to ensure communcation speed and accuracy.
+											</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<h3>Retargeting module. </h3>
+											<p>This module would map the landmark data to the rig on the
+												face mesh. I used the scripting feature provided by Blender and created a retargeting schema and algorithm for our demo character, and I expect it is easily extensible to other characters, so that our add on may be used directly by existing models and solutions.
+											</p>
+										</div>
+									</div>
+
+									<hr>
+
+									<h2>A Comparison with Existing Methods</h2>
+
+									<p>There are a few existing tools in the blender market that also use machine learning to capture human facial expressions and retarget them to characters. However, the key difference is that they used another technique referred to as “blender shape” or “shape keys”. This method requires the user to create different facial expressions manually (or with the help of other tools) as the basis of animation. The landmark data is not used to control the bones, but to perform (linear) combinations over the basis to form compounded facial expressions. Such a method allows for more controlled and stable animation results. However, the user must first create the shape keys as the basis for animation. The method also captures less detailed movements on the face muscles as it does not control the bones directly.</p>
+
+									<hr>
+
+									
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!-- <ul class="icons"> -->
+								<!-- <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li> -->
+								<!-- <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li> -->
+								<!-- <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li> -->
+								<!-- <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li> -->
+								<!-- <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li> -->
+							<!-- </ul> -->
+							<ul class="copyright">
+								<li>&copy; Kris Chen, 2023</li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
