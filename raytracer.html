@@ -167,6 +167,196 @@
 								</span></div>
 						</div>
 					</div>
+
+					<hr>
+					<h2>Design and Implementation</h2>
+
+					<u><h3>Rays</h3></u>
+					<div class="row">
+						<div class="col-6 col-12-small">
+							<p>The Ray class itself is the most simple part in a ray tracing pipeline, yet the core challenge of ray tracing is to study how rays behave in a scene. The Ray class contains four main properties: the origin (a point), the direct (a vector) as well as the min and max distances. 
+								More properties are added to support additional features, for example, the medium pointer points to a class representing volumetric materials such as fog or clouds, and the mono, wavelength properties indicate whether the ray is monochromatic to simulate laser, dispersion effects...
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/raytracer/ray.png" alt="" /></span>
+						</div>
+					</div>
+					<br>
+
+					<u><h3>Transform</h3></u>
+					<div class="row">
+						<div class="col-6 col-12-small">
+							<p>The Transform class is used across different types of data and there are two types of transforms that need to implement differently: the vector and the point; 
+								<br>
+								To transform a vector, I implemented a linear transformation by matrix in the <b> Euclidean space </b>. However, transforming a point is different as the position itself will shift. To achieve it the transformation is done in <b>homogenuous coordinates </b>with a 4x4 matrix.
+								<br>
+								With the two basic functions I implemented transformation for rays, normals, meshes... I also implmented useful features such as inverse and so on.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/raytracer/transform.png" alt="" /></span>
+						</div>
+					</div>
+					<br>
+
+					<u><h3>Geometries</h3></u>
+					I implemented three types of Geometries: the sphere, the quad and the triangle (which is the basic component of meshes). For each geometry the key function is the ray-surface intersection, there are also additional features for different Geometries such as applying transformation, the UV mapping...
+					<br><br>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<h4>Sphere</h4>
+							<p>To calculate ray hit I used ray-sphere intersection algorithm as shown on the right. The corrsponding surface normal will then be the connecting vector from the center to the hit point. To get UV coordinates I transform <b>Euclidean coordinates</b> to <b>Sphereical coordinates </b> and use the corresponding parameters : phi and theta, to be the UV coordinates. 
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raysphereisect1.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/sphere.png" alt="" /></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<h4>triangle</h4>
+							<p>To achieve ray-triangle intersection I implemented the <b> Möller-Trumbore test </b>. To get the UV coordinates I transform the Euclidean coordinates to <b>barycentric coordinates</b> and get the UV from interpolating the alpha nad beta paramteres.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/triangle1.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/triangle2.png" alt="" /></span>
+						</div>
+					</div>
+					<br>
+
+					<u><h3>Materials and BRDF</h3></u>
+
+					Materials is a huge part and the most important part in ray tracing. There are two main parts: the specular behavior of material (such as reflection and refraction) and the BRDF (the microfacet structure, modelled by various mathmetical models such as blinn-phong). Other small but also important features are also implemented such as texture mapping ...
+					<br><br>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<h4>Specular Behavior</h4>
+							<p>Speculat behaviors mainly contains reflection and refractions, which are discribed in the Fresnel model. The model quantifies the effect that there are more reflection when the ray is more orthorgonal to the normal and more refraction when the ray is parallel to the normal.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/reflr.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/spec.png" alt="" /></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<h4>BRDFs</h4>
+							<p>I implemented various BRDF models including: Lambert, Phong, Blinn-Phong, Oren-Nayar and Beckmann. Each BRDF contains three function calls in the pipeline: <b>the eval, the sample, and the pdf </b>. The sample function samples the outgoing ray direction given the incoming ray, material type and other parameters (such as normal), the pdf call returns the probability density function and the eval returns the attenuation.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/fresnel_conductor.png" alt="" /></span>
+							<span class="image fit"><img src="images/raytracer/beckman_shadowing_term.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/beckmanncode.png" alt="" /></span>
+							<i>Implementation of Beckmann</i>
+						</div>
+					</div>
+
+
+					<br>
+					<u><h3>Sampling Functions and Samplers</h3></u>
+
+					<h4>Importance Sampling</h4>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							
+							<p> The importance sampling method can significantly increase both speed and accuracy in a ray tracing pipeline. I implemented various importance sampling including: sampling the cosine term in the render equation (as shown in the image), sampling geometry and sampling brdf. The first image shows the sampling result of consine term, the second is the sampling of genmetry, which is used mostly in next event estimation. Sampling BRDF is implemented together within the material class mentioned above.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/points-on-cosine-power-hemisphere.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/triangle-points.png" alt="" /></span>
+						</div>
+					</div>
+
+					<h4>Stratified Sampling Quasi Monte_carlo Sampling Sampling</h4>
+					<p>Those to sampling methods are, in essense, pseudo-random generators that proved to be able to generate better results than the randf() in C++. Here is a comparasion: (randf, i.e. independent sampling vs stri] vs quasi MC)</p>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/ball-ind.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/ball-strat.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/ball-halton.png" alt="" /></span>
+						</div>
+					</div>
+
+
+					<br>
+					<u><h3>Integrator</h3></u>
+
+
+					<div class="row">
+						
+						<div class="col-4 col-12-small">
+							<h4>Recursive ray tracing</h4>
+							<p>The recursive ray tracing integrator is the most basic integrator. It evaluates the Render Equation by performing probablistic monte-carlo integration and simulate how light bounces in the scene. Each pixel will shoot a number of rays and accumulate color for the pixel. In the following sections I gradually added more advanced features to improve both speed and accuracy.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/slide008.jpg" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/recursive.png" alt="" /></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<h4>Next Event Estimation + MIS + Power Heuristic</h4>
+							<p>NEE and MIS are commonly used together to reduce variance of rendered image.
+								NEE is implemented by spliting the ray into two parts at every intersection. One is sampled based on the BRDF and the other is sampled over the lights. MIS, on the other hand, is the method of blending the two attenuations based on their PDF.
+								Here are the comparasion among recular ray tracing, NEE only and NEE+MIS. 
+							</p>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/veach_mats.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/veach_nee.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/raytracer/veach_mis_power.png" alt="" /></span>
+						</div>
+					</div>
+
+					<br>
+					<u><h3>Volume</h3></u>
+
+					<p>Volumetric Rendering renders things like smoke, fog, clouds.....  I implemented <b>Henyey-Greenstein Phase Function ,  Analytic Free-Flight Sampling and Transmittance, Delta Tracing and Ratio Tracking.</b> This whole section is implemented based on the <a href="https://pbr-book.org/3ed-2018/Volume_Scattering/Media"> PBRT handbook </a>. Anyways here are some results: isotropic fog, anisotropic smoke generated by perlin noises, and a cat made of volumetric materials:</p>
+					<div class="row">
+					<div class="col-4 col-12-small">
+						<span class="image fit"><img src="images/raytracer/isotropic-cornell-box-1024-spp.png" alt="" /></span>
+					</div>
+					<div class="col-4 col-12-small">
+						<span class="image fit"><img src="images/raytracer/cornell-box-uni-2023-03-26-18-11-32.png" alt="" /></span>
+					</div>
+					<div class="col-4 col-12-small">
+						<span class="image fit"><img src="images/raytracer/cat-2023-03-26-22-19-07.png" alt="" /></span>
+					</div>
+					</div>
+
+					<br>
+					<u><h3>Advance Topics</h3></u>
+
+					In the final project I implemented advanced features from recent SIGGRAPH papers: position-free Monte-Carlo Sampling (for layered materials and BSSRDF) and spectral rendering. Each of it is a huge topic itself and deserves seperate discussion. Here is the 
+					<a href="https://drive.google.com/file/d/1rs73OcjrKAtQGq0Fb5qhFusgnjJDXSPg/view?usp=sharing">Technical Report</a> I wrote to introduce the features in detail.
+
 				</div>
 			</section>
 		</div>
