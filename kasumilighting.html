@@ -45,24 +45,29 @@
 			<section id="one">
 				<div class="inner">
 					<header class="major">
-						<h1>Kasumi Lighting</h1>
+						<h1>Kasumi Lighting Model</h1>
 					</header>
 
 					<h2 id="content">Introduction</h2>
 
-					<p>Kasumi Lighting is a Stylized Render Pipeline for Unity that I made in my free time. 
-						<br>
-						It is designed to support a variety of styles, including Manga, American Comics, Watercolor ... with a large range of custom effects.. 
-						<br>
+					<p>Kasumi Lighting Model is stylized render pipeline for Unity I made in my free time written in HLSL, Shaderlab and C#. 
+						It is designed to be generic, meaning that it is a "meta" pipleine and is not limited to a specific artistic style.
+						Artists can achieve various styles by using different parameters the pipeline provides: (The pictures below demostrate some of the styles I created)
 					</p>
-					<div><img style="
-						max-width: 100%;
-						width: 100%;
-						height: auto;
-						margin: 0 auto;
-					  " src="images/kasumidemo1.gif"></div>
+
+					<div class="box alt">
+						<div class="row gtr-50 gtr-uniform">
+							<div class="col-6"><span class="image fit"><img src="images/Klm/kasumidemo.png" alt="" /></span></div>
+							<div class="col-6"><span class="image fit"><img src="images/Klm/kasumilightingV2night.png" alt="" /></span></div>
+							<div class="col-6"><span class="image fit"><img src="images/Klm/kldemo2.jpg" alt="" /></span></div>
+							<div class="col-6"><span class="image fit"><img src="images/Klm/paint.png" alt="" /></span></div>
+							<div class="col-6"><span class="image fit"><img src="images/Klm/kasumiComic.png" alt="" /></span></div>
+							<div class="col-6"><span class="image fit"><img src="images/Klm/anya.png" alt="" /></span></div>
+						</div>
+					</div>
 					
-					<br>
+					<h2 id="content">Pipeline Architecture</h2>
+					<span class="image fit"><img src="images/Klm/arch.png" alt="" /></span>
 
 					<h2 id="content">Core Features</h2>
 
@@ -98,14 +103,12 @@
 							<ul>
 								<li>Stylized Water</li>
 								<li>Depth Fog</li>
-								<li>Two Directional Gaussian Blur Post Processing</li>
+								<li>Bidirectional Gaussian Blur Post Processing</li>
 							</ul>
 						</div>
-						<!-- Break -->
-
 					</div>
 
-					I'll Upload a detailed feature demo after I finish this internship.... 
+
 
 				</div>
 
