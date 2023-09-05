@@ -8,6 +8,15 @@
 		$header = $('#header'),
 		$banner = $('#banner');
 
+
+		$('<img/>').attr('src', '../../images/o2.png').on('load', function() {
+			$(this).remove();
+			$banner.css('background-image', 'url(../../images/o2.jpg)');
+			window.setTimeout(function() {
+				$body.removeClass('is-preload');
+			}, 100);
+		});
+
 	// Breakpoints.
 		breakpoints({
 			xlarge:    ['1281px',   '1680px'   ],
@@ -88,11 +97,11 @@
 	};
 
 	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+		// $banner.on('load', function() {
+		// 	window.setTimeout(function() {
+		// 		$body.removeClass('is-preload');
+		// 	}, 100);
+		// });
 
 	// Clear transitioning state on unload/hide.
 		$window.on('unload pagehide', function() {
