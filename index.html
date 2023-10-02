@@ -25,13 +25,14 @@
       };
 
 	  window.addEventListener("load", function(){
+		if (window.location.hash) {
+    		history.replaceState("", document.title, window.location.pathname + window.location.search);
+  		}
 		var nodes = document.querySelector("#one").children
 		for(var node of nodes){
 			node.className.split(' ').forEach((clsname)=>{
 				articlesData[clsname].push(node)
 			})
-			//console.log(node.className.split(' '))
-			//articlesData[node.className].push(node)
 		}
 		//console.log(articlesData)
 	  })
@@ -39,26 +40,20 @@
       window.addEventListener("hashchange", function () {
         var hash = window.location.hash.substring(1);
         var articlesContainer = document.getElementById("one"); // Assume this is the container for your articles
-		var banner = document.getElementById("banner");
-		var subanner = document.getElementById("subanner");
+		var myname = document.getElementById("myname");
 
         if (hash && articlesData[hash]) {
           // Remove all existing articles
           articlesContainer.innerHTML = "";
-		  //switch banner
-		  //banner.style = "display: none"
-		  subannerContent = `	
-		  <div class="inner">
-			<header class="major">
-				<h3>Kris | ${hash}</h>
-			</header>
-		   </div>`
-		   //subanner.innerHTML = subannerContent
+
           // Append the article(s) for the specified class
 		  articlesData[hash].forEach((node)=>{
 			articlesContainer.appendChild(node)
 		  })
-          //articlesContainer.innerHTML = articlesData[hash];
+          
+		  //switch banner
+		  mynamecontent = `<h1>Kris Chen | ${hash}</h1>`
+		  myname.innerHTML = mynamecontent
         }
       });
     </script>
@@ -101,16 +96,16 @@
       <!-- Banner -->
       <section id="banner" class="major">
         <div class="inner">
-          <header class="major">
+          <header class="major" id="myname">
             <h1>Kris Chen</h1>
           </header>
-          <div class="content">
+          <div class="content" id="myintro">
             <p>
-              Technical Artist | Full Stack Developer | future game designer
+              Technical Artist | Full Stack Developer | future game designer |
               <br />
               Creating experiences that entertain and inspire
             </p>
-            <ul class="actions">
+            <ul class="actions" id="mybiobutton">
               <!-- <li><a href="#one" class="button next scrolly">My Work</a></li> -->
               <li><a href="bio.html" class="button next">About Meee</a></li>
             </ul>
@@ -141,6 +136,18 @@
             </header>
           </article>
 
+		  <article class="Animation">
+            <span class="image">
+              <img src="images/Covers/cloth.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3>
+                <a href="GPUCloth.html" class="link">GPU Cloth Simulation</a>
+              </h3>
+              <p>A GPU Based Cloth Simulation System for Unity</p>
+            </header>
+          </article>
+
           <article class="Rendering">
             <span class="image">
               <img src="images/Covers/pbr2.gif" alt="" />
@@ -150,18 +157,6 @@
               <p>
                 A ray tracer implemented in C++ following the PBRT standards
               </p>
-            </header>
-          </article>
-
-          <article class="Animation">
-            <span class="image">
-              <img src="images/Covers/cloth.gif" alt="" />
-            </span>
-            <header class="major">
-              <h3>
-                <a href="GPUCloth.html" class="link">GPU Cloth Simulation</a>
-              </h3>
-              <p>A GPU Based Cloth Simulation System for Unity</p>
             </header>
           </article>
 
