@@ -2813,7 +2813,7 @@ input, select, textarea {
 				display: block;
 				height: 100%;
 				left: 0;
-				opacity: 0.2;
+				opacity: 0.1; /*article opacity*/
 				position: absolute;
 				width: 100%;
 				z-index: 2;
