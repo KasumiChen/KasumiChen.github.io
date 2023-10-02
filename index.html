@@ -1,121 +1,212 @@
 <html>
+  <head>
+    <title>Kris' Portfolio Site</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+  </head>
 
-<head>
-	<title>Kris' Portfolio Site</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-</head>
+  <body class="is-preload">
+    <!--conditional rendering-->
+    <script>
+      var articlesData = {
+        Rendering: [],
+        Animation: [],
+		AIML: [],
+		Games: [],
+		XR: [],
+		Misc: []
+      };
 
-<body class="is-preload">
+	  window.addEventListener("load", function(){
+		var nodes = document.querySelector("#one").children
+		for(var node of nodes){
+			node.className.split(' ').forEach((clsname)=>{
+				articlesData[clsname].push(node)
+			})
+			//console.log(node.className.split(' '))
+			//articlesData[node.className].push(node)
+		}
+		//console.log(articlesData)
+	  })
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+      window.addEventListener("hashchange", function () {
+        var hash = window.location.hash.substring(1);
+        var articlesContainer = document.getElementById("one"); // Assume this is the container for your articles
+		var banner = document.getElementById("banner");
+		var subanner = document.getElementById("subanner");
 
-		<!-- Header -->
-		<header id="header" class="alt">
-			<a href="index.html" class="logo"><strong>Kris'</strong> <span>Portfolio Site</span></a>
-			<nav>
-				<a href="#menu">Menu</a>
-			</nav>
-		</header>
+        if (hash && articlesData[hash]) {
+          // Remove all existing articles
+          articlesContainer.innerHTML = "";
+		  //switch banner
+		  //banner.style = "display: none"
+		  subannerContent = `	
+		  <div class="inner">
+			<header class="major">
+				<h3>Kris | ${hash}</h>
+			</header>
+		   </div>`
+		   //subanner.innerHTML = subannerContent
+          // Append the article(s) for the specified class
+		  articlesData[hash].forEach((node)=>{
+			articlesContainer.appendChild(node)
+		  })
+          //articlesContainer.innerHTML = articlesData[hash];
+        }
+      });
+    </script>
 
-		<!-- Menu -->
-		<nav id="menu">
-			<ul class="links">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="bio.html">About Meee</a></li>
-				<li><a href="https://www.instagram.com/kasumiii_art">Instagram</a></li>
-				<li><a href="mailto:krischen.nekolabs@gmail.com">Contact</a></li>
-			</ul>
-			<!-- <ul class="actions stacked">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="index.html" class="logo"
+          ><strong>Kris'</strong> <span>Portfolio Site</span></a
+        >
+
+        <nav>
+          <a href="#Rendering">Rendering </a>
+          <a href="#Animation">Animation </a>
+          <a href="#AIML">AI/ML </a>
+          <a href="#Games">Games </a>
+          <a href="#XR">XR </a>
+          <a href="#Misc">Misc </a>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+
+      <!-- Menu -->
+      <nav id="menu">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="bio.html">About Meee</a></li>
+          <li>
+            <a href="https://www.instagram.com/kasumiii_art">Instagram</a>
+          </li>
+          <li><a href="mailto:krischen.nekolabs@gmail.com">Contact</a></li>
+        </ul>
+        <!-- <ul class="actions stacked">
 							<li><a href="#" class="button primary fit">Get Started</a></li>
 							<li><a href="#" class="button fit">Log In</a></li>
 						</ul> -->
-		</nav>
+      </nav>
 
-		<!-- Banner -->
-		<section id="banner" class="major">
-			<div class="inner">
-				<header class="major">
-					<h1>Kris Chen</h1>
-				</header>
-				<div class="content">
-					<p>An [Uprising] Technical Artist | Full Stack Developer <br> (and probably game designer in the future)</p>
-					<ul class="actions">
-						<!-- <li><a href="#one" class="button next scrolly">My Work</a></li> -->
-						<li><a href="bio.html" class="button next">About Meee</a></li>
-					</ul>
-				</div>
-			</div>
-		</section>
-		
+      <!-- Banner -->
+      <section id="banner" class="major">
+        <div class="inner">
+          <header class="major">
+            <h1>Kris Chen</h1>
+          </header>
+          <div class="content">
+            <p>
+              Technical Artist | Full Stack Developer | future game designer
+              <br />
+              Creating experiences that entertain and inspire
+            </p>
+            <ul class="actions">
+              <!-- <li><a href="#one" class="button next scrolly">My Work</a></li> -->
+              <li><a href="bio.html" class="button next">About Meee</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-		<!-- Main -->
-		<div id="main">
+	  <div id="subanner">
 
+	  </div>
 
-			<!-- One -->
-			<section id="one" class="tiles">
-				<article>
-					<span class="image">
-						<img src="images/Covers/kl.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="kasumilighting.html" class="link">Kasumi Lighting Model</a></h3>
-						<p>A Stylized Render Pipeline Developed for Unity</p>
-					</header>
-				</article>
-				<article>
-					<span class="image">
-						<img src="images/Covers/pbr2.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="raytracer.html" class="link">Ray Tracing</a></h3>
-						<p>A ray tracer implemented in C++ following the PBRT standards</p>
-					</header>
-				</article>
-				<article>
-					<span class="image">
-						<img src="images/Covers/cloth.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="GPUCloth.html" class="link">GPU Cloth Simulation</a></h3>
-						<p>A GPU Based Cloth Simulation System for Unity</p>
-					</header>
-				</article>
-				<article>
-					<span class="image">
-						<img src="images/Covers/aiface.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="aiface.html" class="link">AI Facial Animation System</a></h3>
-						<p>An AI Realtime Facial Mocap Add-on for Blender</p>
-					</header>
-				</article>
-				<article>
-					<span class="image">
-						<img src="images/Covers/vfx.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="vfx.html" class="link">VFX Assets</a></h3>
-						<p>Some VFX Effects I made in Unity</p>
-					</header>
-				</article>
-				<article>
-					<span class="image">
-						<img src="images/Covers/nn2.gif" alt="" />
-					</span>
-					<header class="major">
-						<h3><a href="mlpostp.html" class="link">Unity Neural Network Rendering </a></h3>
-						<p>An Experimental work to include Neural Networks into Unity Render Pipeline</p>
-					</header>
-				</article>
+      <!-- Main -->
+      <div id="main">
+        <!-- One -->
+        <section id="one" class="tiles">
 
-				<!-- <article>
+          <article class="Rendering">
+            <span class="image">
+              <img src="images/Covers/kl.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3>
+                <a href="kasumilighting.html" class="link"
+                  >Kasumi Lighting Model</a
+                >
+              </h3>
+              <p>A Stylized Render Pipeline Developed for Unity</p>
+            </header>
+          </article>
+
+          <article class="Rendering">
+            <span class="image">
+              <img src="images/Covers/pbr2.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3><a href="raytracer.html" class="link">Ray Tracing</a></h3>
+              <p>
+                A ray tracer implemented in C++ following the PBRT standards
+              </p>
+            </header>
+          </article>
+
+          <article class="Animation">
+            <span class="image">
+              <img src="images/Covers/cloth.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3>
+                <a href="GPUCloth.html" class="link">GPU Cloth Simulation</a>
+              </h3>
+              <p>A GPU Based Cloth Simulation System for Unity</p>
+            </header>
+          </article>
+
+          <article class="Animation AIML">
+            <span class="image">
+              <img src="images/Covers/aiface.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3>
+                <a href="aiface.html" class="link"
+                  >AI Facial Animation System</a
+                >
+              </h3>
+              <p>An AI Realtime Facial Mocap Add-on for Blender</p>
+            </header>
+          </article>
+
+          <article class = "Misc">
+            <span class="image">
+              <img src="images/Covers/vfx.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3><a href="vfx.html" class="link">VFX Assets</a></h3>
+              <p>Some VFX Effects I made in Unity</p>
+            </header>
+          </article>
+
+          <article class="Rendering AIML">
+            <span class="image">
+              <img src="images/Covers/nn2.gif" alt="" />
+            </span>
+            <header class="major">
+              <h3>
+                <a href="mlpostp.html" class="link"
+                  >Unity Neural Network Rendering
+                </a>
+              </h3>
+              <p>
+                An Experimental work to include Neural Networks into Unity
+                Render Pipeline
+              </p>
+            </header>
+          </article>
+
+          <!-- <article>
 					<span class="image">
 						<img src="images/anya.png" alt="" />
 					</span>
@@ -124,10 +215,10 @@
 						<p>A Game-ified Cyberesecurity Challenge Created for NYU Global CTF Contest</p>
 					</header>
 				</article> -->
-			</section>
+        </section>
 
-			<!-- Two -->
-			<!-- <section id="two">
+        <!-- Two -->
+        <!-- <section id="two">
 				<div class="inner">
 					<header class="major">
 						<h2>About Meee</h2>
@@ -138,11 +229,10 @@
 					</ul>
 				</div>
 			</section> -->
+      </div>
 
-		</div>
-
-		<!-- Contact -->
-		<!-- <section id="contact">
+      <!-- Contact -->
+      <!-- <section id="contact">
 						<div class="inner">
 							<section>
 								<form method="post" action="#">
@@ -194,33 +284,30 @@
 						</div>
 					</section> -->
 
-		<!-- Footer -->
-		<footer id="footer">
-			<div class="inner">
-				<!-- <ul class="icons"> -->
-				<!-- <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li> -->
-				<!-- <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-				<!-- <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li> -->
-				<!-- <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li> -->
-				<!-- <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li> -->
-				<!-- </ul> -->
-				<ul class="copyright">
-					<li>&copy; Kris Chen, 2023</li>
-				</ul>
-			</div>
-		</footer>
+      <!-- Footer -->
+      <footer id="footer">
+        <div class="inner">
+          <!-- <ul class="icons"> -->
+          <!-- <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li> -->
+          <!-- <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li> -->
+          <!-- <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li> -->
+          <!-- <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li> -->
+          <!-- <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li> -->
+          <!-- </ul> -->
+          <ul class="copyright">
+            <li>&copy; Kris Chen, 2023</li>
+          </ul>
+        </div>
+      </footer>
+    </div>
 
-	</div>
-
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-
-</body>
-
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>
