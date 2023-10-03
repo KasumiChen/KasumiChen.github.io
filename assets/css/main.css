@@ -7,9 +7,9 @@
     display: none;  /* Hide by default */
 }
 
-@media screen and (min-width: 800px) {
-    .filter {
-        display: block;  /* Show when window width is at least 800px */
+@media screen and (max-width: 960px) {
+    #header nav a[class="filter"] {
+        display: none;  /* Show when window width is at least 800px */
     }
 }
 
