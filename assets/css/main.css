@@ -1,6 +1,18 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,600,600italic");
 
+
+/* CSS */
+.filter {
+    display: none;  /* Hide by default */
+}
+
+@media screen and (min-width: 800px) {
+    .filter {
+        display: block;  /* Show when window width is at least 800px */
+    }
+}
+
 .image-container {
 	position: relative;
 	display: inline-block;
