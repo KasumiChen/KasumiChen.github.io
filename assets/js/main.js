@@ -9,7 +9,7 @@
 		$banner = $('#banner');
 
 
-		$('<img/>').attr('src', '../../images/o2.jpg').on('load', function() {
+		$('<img importance="high"/>').attr('src', '../../images/o2.jpg').on('load', function() {
 			$(this).remove();
 			$banner.css('background-image', 'url(../../images/o2.jpg)');
 			window.setTimeout(function() {

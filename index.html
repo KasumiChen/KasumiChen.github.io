@@ -13,47 +13,52 @@
   </head>
 
   <body class="is-preload">
+
     <!--conditional rendering-->
     <script>
       var articlesData = {
         Rendering: [],
         Animation: [],
-		AIML: [],
-		Games: [],
-		XR: [],
-		Misc: []
+        AIML: [],
+        Games: [],
+        XR: [],
+        Misc: [],
       };
 
-	  window.addEventListener("load", function(){
-		if (window.location.hash) {
-    		history.replaceState("", document.title, window.location.pathname + window.location.search);
-  		}
-		var nodes = document.querySelector("#one").children
-		for(var node of nodes){
-			node.className.split(' ').forEach((clsname)=>{
-				articlesData[clsname].push(node)
-			})
-		}
-		//console.log(articlesData)
-	  })
+      window.addEventListener("load", function () {
+        if (window.location.hash) {
+          history.replaceState(
+            "",
+            document.title,
+            window.location.pathname + window.location.search
+          );
+        }
+        var nodes = document.querySelector("#one").children;
+        for (var node of nodes) {
+          node.className.split(" ").forEach((clsname) => {
+            articlesData[clsname].push(node);
+          });
+        }
+        //console.log(articlesData)
+      });
 
       window.addEventListener("hashchange", function () {
         var hash = window.location.hash.substring(1);
         var articlesContainer = document.getElementById("one"); // Assume this is the container for your articles
-		var myname = document.getElementById("myname");
+        var myname = document.getElementById("myname");
 
         if (hash && articlesData[hash]) {
           // Remove all existing articles
           articlesContainer.innerHTML = "";
 
           // Append the article(s) for the specified class
-		  articlesData[hash].forEach((node)=>{
-			articlesContainer.appendChild(node)
-		  })
-          
-		  //switch banner
-		  mynamecontent = `<h1>Kris Chen | ${hash}</h1>`
-		  myname.innerHTML = mynamecontent
+          articlesData[hash].forEach((node) => {
+            articlesContainer.appendChild(node);
+          });
+
+          //switch banner
+          mynamecontent = `<h1>Kris Chen | ${hash}</h1>`;
+          myname.innerHTML = mynamecontent;
         }
       });
     </script>
@@ -102,7 +107,7 @@
           <div class="content" id="myintro">
             <p>
               Technical Artist | Full Stack Developer | future game designer |
-              <br>
+              <br />
               Creating experiences that entertain and inspire
             </p>
             <ul class="actions" id="mybiobutton">
@@ -113,18 +118,15 @@
         </div>
       </section>
 
-	  <div id="subanner">
-
-	  </div>
+      <div id="subanner"></div>
 
       <!-- Main -->
       <div id="main">
         <!-- One -->
         <section id="one" class="tiles">
-
           <article class="Rendering">
             <span class="image">
-              <img src="images/Covers/kl.gif" alt="" />
+              <img src="images/Covers/kl.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3>
@@ -136,9 +138,9 @@
             </header>
           </article>
 
-		  <article class="Animation">
+          <article class="Animation">
             <span class="image">
-              <img src="images/Covers/cloth.gif" alt="" />
+              <img src="images/Covers/cloth.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3>
@@ -150,7 +152,7 @@
 
           <article class="Rendering">
             <span class="image">
-              <img src="images/Covers/pbr2.gif" alt="" />
+              <img src="images/Covers/pbr2.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3><a href="raytracer.html" class="link">Ray Tracing</a></h3>
@@ -162,7 +164,7 @@
 
           <article class="Animation AIML">
             <span class="image">
-              <img src="images/Covers/aiface.gif" alt="" />
+              <img src="images/Covers/aiface.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3>
@@ -174,9 +176,9 @@
             </header>
           </article>
 
-          <article class = "Misc">
+          <article class="Misc">
             <span class="image">
-              <img src="images/Covers/vfx.gif" alt="" />
+              <img src="images/Covers/vfx.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3><a href="vfx.html" class="link">VFX Assets</a></h3>
@@ -186,7 +188,7 @@
 
           <article class="Rendering AIML">
             <span class="image">
-              <img src="images/Covers/nn2.gif" alt="" />
+              <img src="images/Covers/nn2.gif" alt="" loading="lazy"/>
             </span>
             <header class="major">
               <h3>
@@ -226,59 +228,6 @@
 			</section> -->
       </div>
 
-      <!-- Contact -->
-      <!-- <section id="contact">
-						<div class="inner">
-							<section>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Clear" /></li>
-									</ul>
-								</form>
-							</section>
-							<section class="split">
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-envelope"></span>
-										<h3>Email</h3>
-										<a href="#">information@untitled.tld</a>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-phone"></span>
-										<h3>Phone</h3>
-										<span>(000) 000-0000 x12387</span>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-home"></span>
-										<h3>Address</h3>
-										<span>1234 Somewhere Road #5432<br />
-										Nashville, TN 00000<br />
-										United States of America</span>
-									</div>
-								</section>
-							</section>
-						</div>
-					</section> -->
-
       <!-- Footer -->
       <footer id="footer">
         <div class="inner">
@@ -304,5 +253,8 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+
+
   </body>
 </html>
