@@ -2,6 +2,7 @@
 
 (function($) {
 
+	//speed
 	var	$window = $(window),
 		$body = $('body'),
 		$wrapper = $('#wrapper'),
@@ -16,6 +17,7 @@
 				$body.removeClass('is-preload');
 			}, 100);
 		});
+		
 
 	// Breakpoints.
 		breakpoints({
