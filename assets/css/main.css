@@ -18,6 +18,17 @@
 	display: inline-block;
 }
 
+.video-container {
+    position: relative;
+    width: 100%;
+    /* Adjust height as needed */
+    height: auto;
+    overflow: hidden;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
 .caption {
 	position: absolute;
 	bottom: 0;
@@ -29,6 +40,32 @@
 	font-size: 14px;
 	text-align: center;
 	opacity: 0;
+}
+
+.captionp {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 10px;
+	font-size: 14px;
+	text-align: center;
+	opacity: 1;
+}
+
+.captionv {
+	position: absolute;
+	bottom: 4%;
+	left: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 10px;
+	font-size: 14px;
+	text-align: center;
+	opacity: 1;
 }
 
 .image:hover {

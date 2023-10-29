@@ -51,30 +51,291 @@
 					<h2 id="content">Introduction</h2>
 
 					<p>
-						The following work is to demostrate my skills in Unity VFX Graph.  
+						The following work is to demostrate my skills in Unity VFX Graph, mainly in four skillsets: 
+						Particle Effects, Mesh Effects, SDF and User Interaction.
 					</p>
 					
 					<div class="row">
 
-								<img src="images/vfx/fireworkgraph.png" alt="" width="60%" />
-								<img src="images/vfx/firework.gif" alt="" width="40%"/>
+						<div class="col-8 col-12-small">
+							<h3>Pokemon Fireworks</h3>
+							<p>
+								It is a stylized firework that supports arbitary patterns (not just Pokemon!) based on point cache. 
+								Artists can easily adjust all properties including the pattern, color, speed, time of explosion and so on; and apply them in theri work.
+								It mainly made up of four particle systems: 
+								
+							</p>
+							<ul>
+								<li>the main firework</li>
+								<li>the trail</li>
+								<li>the explosion pattern</li>
+								<li>the explosion trail</li>
+							</ul>
+						</div>
+
+						<div class="col-4 col-12-small">
+
+							<span class="image fit"><img
+								src="images/vfx/firework.gif" alt="" />
+							</span>
+						</div>			
 					</div>
-					<br>
+					
+					<h5>Step Breakdown </h5>
+
 					<div class="row">	
-						<img src="images/vfx/summon.gif" width="40%" alt="" />
-						<img src="images/vfx/summongraph.png" width="60%" alt="" />
-					</div>
-					<br>
-					<div class="row">	
-						<img src="images/vfx/sdfgraph.png" alt="" width="60%" />
-						<img src="images/vfx/sdf.gif" alt="" width="40%"/>
-					</div>
-					<br>
-					<div class="row">	
-						<img src="images/vfx/lightening.gif" width="40%" alt=""  />
-						<img src="images/vfx/lighteninggraph.png" width="60%" alt=""  />
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/fireworkstep0.gif" alt="" />
+							<div class="captionp">Add Firework Base</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/fireworkstep1.gif" alt="" />
+							<div class="captionp">Add Firework Trail</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/fireworkstep2.gif" alt="" />
+							<div class="captionp">Add Point Cache</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/fireworkstep4.gif" alt="" />
+							<div class="captionp">Add Explosion Physics</div>
+							</span>
+						</div>
 					</div>
 
+					<hr>
+					<div class="row">	
+						<div class="col-8 col-12-small">
+							<h3>Particle Mesh</h3>
+							<p>
+								It is a very common effect in games and actually a quite advanced feature combinaing mesh, rendering, animation and particles. 
+								Using my workflow, artists can easily build this effect for all types of meshes and models and adjust the color, animation and duration.
+								The main components are:
+								
+							</p>
+							<ul>
+								<li>Mesh Rendering</li>
+								<li>Mesh Animation</li>
+								<li>Parameterization & Control</li>
+								<li>Particle Trails</li>
+							</ul>
+						</div>
+
+						<div class="col-4 col-12-small">
+
+							<span class="image fit"><img
+								src="images/vfx/summon.gif" alt="" />
+							</span>
+						</div>			
+					</div>
+
+					<h5>Step Breakdown </h5>
+
+					<div class="row">	
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/summonstep0.gif" alt="" />
+							<div class="captionp">Add Model and Animation</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/summonstep1.gif" alt="" />
+							<div class="captionp">Add Rendering</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/summonstep2.gif" alt="" />
+							<div class="captionp">Add Decay Controller</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/summonstep3.gif" alt="" />
+							<div class="captionp">Add Particles</div>
+							</span>
+						</div>
+					</div>
+
+
+
+					<hr>
+
+					<div class="row">	
+						<div class="col-8 col-12-small">
+							<h3>Signed Distance Field (SDF)</h3>
+							<p>
+								Signed Distance Field is an advanced but very useful mathematical representation for objects. 
+								We can achieve various stunning visual effects with high performance using SDF. 
+								The famous GI solution:Limen in UE5 uses SDF for pseudo-raytracing. 
+								Here we demo a simploe but appealing visual effects made in SDF.
+								The main components are:
+								
+							</p>
+							<ul>
+								<li>SDF Baking</li>
+								<li>Sampling Particle Position from SDF</li>
+								<li>Force Field over SDF</li>
+								<li>Color and Trail sampled from SDF</li>
+								<li>SDF Transformation</li>
+							</ul>
+						</div>
+
+						<div class="col-4 col-12-small">
+							<span style="display: block;">
+								<video autoplay loop muted width="100%">
+									<source src="images/vfx/sdf.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+								</video>
+							</span>
+
+						</div>			
+					</div>
+
+					<h5>Step Breakdown </h5>
+
+					<div class="row">	
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/sdfstep0.png" alt="" />
+							<div class="captionp">Create SRC SDF</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/sdfstep0.5.png" alt="" />
+							<div class="captionp">Create target SDF</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/sdfstep1.gif" alt="" />
+							<div class="captionp">Sample Position from SDF</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span class="image fit"><img
+								src="images/vfx/sdfstep2.gif" alt="" />
+							<div class="captionp">Sample Color from SDF</div>
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/sdfstep3.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Sample Force from SDF</div>
+								</div>				
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/sdfstep4.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Add Trails</div>
+								</div>				
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/sdfstep5.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Add SDF Transformation</div>
+								</div>				
+							</span>
+						</div>
+					</div>
+
+					<hr>
+
+
+					<div class="row">	
+						<div class="col-8 col-12-small">
+							<h3>Interactive VFX</h3>
+							<p>
+								Sometimes our VFX needs to have interaction with user inputs. 
+								In the demo it shows a lightening ball following the mouse position from the user in real time.
+								
+							</p>
+							<ul>
+								<li>Particle Interaction</li>
+								<li>Trail Interaction</li>
+								<li>Pseudorandom Functions (PRF) for Lightenling</li>
+							</ul>
+						</div>
+
+						<div class="col-4 col-12-small">
+
+							<span class="image fit"><img
+								src="images/vfx/lightening.gif" alt="" />
+							</span>
+						</div>			
+					</div>
+
+					<h5>Step Breakdown </h5>
+
+					<div class="row">	
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/ltstep0.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Create Constant Particle as core</div>
+								</div>				
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/ltstep1.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Set up mouse tracking</div>
+								</div>				
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/ltstep3.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Create Lightening Pattern with PRF</div>
+								</div>				
+							</span>
+						</div>
+						<div class="col-3 col-12-small">
+							<span style="display: block;">
+								<div class="video-container">								
+									<video autoplay loop muted width="100%">
+										<source src="images/vfx/ltstep4.mp4" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+									<div class="captionv">Add lightening trace</div>
+								</div>				
+							</span>
+						</div>
+					</div>
 
 
 				</div>
