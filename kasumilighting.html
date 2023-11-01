@@ -48,14 +48,23 @@
 						<h1>Kasumi Lighting Model</h1>
 					</header>
 
-					<h2 id="content">Introduction</h2>
+					<h2 id="content">Introduction & Motivation</h2>
 
-					<p>Kasumi Lighting Model is stylized render pipeline for Unity I made in my free time written in HLSL, Shaderlab and C#. 
-						It is designed to be generic, meaning that it is a "meta" pipleine and is not limited to a specific artistic style.
-						Artists can achieve various styles, or even innovate new art styles by using different parameters the pipeline provides: (The pictures below demostrate some of the styles I created)
+					<p>Kasumi Lighting Model is "General" stylized render pipeline for Unity written in HLSL, Shaderlab and C#. 
 					</p>
 
+					<p>
+						As I began to study the code / shadergraph by fellow technical artists, I encountered a pervasive issue: while the code was functionally correct, its structure often neglected key principles revered in software engineering. These principles— <b>abstraction, cohesion, low coupling, and modularization</b>—are essential for creating code that is flexible and maintainable. The absence of these attributes in code led to challenges in <b>reuse, debugging, modification, feature augmentation, and optimization </b>. Motivated by this gap, I started the project with a clear goal: to introduce the discipline of software development engineering the technical artistry.
+					</p>
+
+					<p>To achieve this, I began by establishing clear abstractions for each constituent element that shapes an "art style". This segmentation allowed for a more granular approach to artistic expression, where individual components could be independently developed and refined without disrupting the integrity of the overall design. By doing so, I not only improved the scalability of art production but also enabled a more collaborative environment where artists and engineers could contribute their expertise in concert, thereby elevating the quality and efficiency of the development process. This, I believe, is the key role of technical artists.
+
+					<p>The work is also a demonstration of my ability to write shader code, my understanding in GPU workflow and Unity render pipeline; and also a personal interest inspired by all the visually appealing stylized games I played.  </p>
+
 					<h2 id="content">Demo</h2>
+					<p>
+						All the styles in the demo are created with a single Kasumi Lighting Model instance, by changing the parameters of different style sub-components. 
+					</p>
 					<style>
 						.video-container {
 						  position: relative;
@@ -76,18 +85,23 @@
 						<iframe width="560" height="315" src="https://www.youtube.com/embed/Ni0baAsH6qU?si=jJj8dVLmowt4RTGm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 					</div>
 					
-					<h2 id="content">Pipeline Architecture</h2>
-					<span class="image fit"><img src="images/Klm/arch.png" alt="" /></span>
+					<br>
 
-					<h2 id="content">Core Features</h2>
+					<h2 id="content">Design and Implementation</h2>
+
+
+					<h3 id="content">Style Component Abstraction</h2>
+
+						<p>My abstraction model contains four main categories (the lighting, the shading, the effects and additional components) and each contains several sub-components:</p>
+						
 
 					<div class="row">
 						<div class="col-6 col-12-small">
 							Stylized Lighting Model
 							<ul>
 								<li>Custom Ray Diffusion Model and Color Model</li>
-								<li>Stylized Metallics, smoothness, Clear Coat and BRDF</li>
-								<li>Ambient Occulusion and Global Illumination</li>
+								<li>Stylized Metallic, smoothness, Clear Coat and BRDF</li>
+								<li>Ambient Occlusion and Global Illumination</li>
 							</ul>
 						</div>
 						<div class="col-6 col-12-small">
@@ -96,7 +110,6 @@
 								<li>Alpha map, normal map, specular map...</li>
 								<li>Transparency and Alpha cutout, culling</li>
 								<li>Layer Blending</li>
-								<li>Vertex Animation</li>
 							</ul>
 						</div>
 						<div class="col-6 col-12-small">
@@ -111,6 +124,7 @@
 						<div class="col-6 col-12-small">
 							Additional Components
 							<ul>
+								<li>Vertex Animation</li>
 								<li>Stylized Water</li>
 								<li>Depth Fog</li>
 								<li>Bidirectional Gaussian Blur Post Processing</li>
@@ -118,38 +132,142 @@
 						</div>
 					</div>
 
-					<h2 id="content">Component / Basic Features Demo</h2>
-					<style>
-						.video-container {
-						  position: relative;
-						  padding-bottom: 56.25%; /* 16:9 aspect ratio (height:width) */
-						  height: 0;
-						  overflow: hidden;
-						}
-					  
-						.video-container iframe {
-						  position: absolute;
-						  top: 0;
-						  left: 0;
-						  width: 100%;
-						  height: 100%;
-						}
-					  </style>
-					<div class="video-container">
-							<iframe width="100%" height="100%" 
-							src="https://www.youtube.com/embed/taPJmYueXsU?si=uIRhObmaYib3uksS" 
-							title="YouTube video player" frameborder="0" 
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-							allowfullscreen></iframe>
+					<h3 id="content">Pipeline Architecture & Data Flow</h2>
+
+					<p>The whole pipeline is implemented as a forward rendering pipeline for maximum compatibility on hardwares and platforms. 
+						Each component is implemented independently and integrated into the render pipeline.
+						The <b>blue</b> blocks are components that also exists in other lighting models (such as unity's default / PBR), while the <b>red</b>
+						blocks are specifically for NPR rendering.
+					</p>
+					<span class="image fit"><img src="images/Klm/arch.png" alt="" /></span>
+
+					<h3 id="content">Component Implementation</h3>
+					
+					<p>In the section I'll briefly introduce some key components and how they are implemented. The components discussed will follow the order of the execution in the pipeline. It ensures <b> modularization and single dependency flow </b> to achieve the software engineering properties:</p>
+					
+
+					<u><h5>Vertex Animation Controller</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								The Vertex animation is controlled in the vertex stage. The component allows artists to control vertex movements at three dimensions using the Noise sampler. The component also offers two advanced features: (1) artists can use Vertex Color to achieve more detailed control over individual vertex. I use the method in the grass demo to build a gradient that makes the grass tip to swing faster and the root remains stable. (2) TAs can overload the noise sampler function to achieve more complex vertex animation.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-animec.png" alt="" /></span>
+						</div>
+					</div>
+
+
+					
+					<u><h5>Depth and Depth Normal Sampling</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								After the vertex stage I made a hidden layer that extract depth and depth normals: two textures that are used commonly 
+								in stylized rendering (such as water refraction, edge detection...). Artists can use those intermediate data freely without worrying about how Unity pipelines work. 
+							</p>
+							<p>
+								I implemented the feature by creating a new render pass and inserting it into the original GPU workflow. 
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-depthn.png" alt="" /></span>
+						</div>
+					</div>
+
+					<u><h5>Albedo, Normal Map (and Other Maps) and Alpha Clip</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								Those are the basics in all render pipelines and I just need to implement them correctly. 
+
+								I implemented two additional features in the component: (1) allowing artists to use Vertex Color to dynamically control the albedo of a model, (2) allowing artists to control albedo based on normal direction. Those features allows for procedural textures and more efficient assets building (the grass and the rocks with grass on top in demo2 is made using those features).  
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-albedo.png" alt="" /></span>
+						</div>
+					</div>
+
+					<u><h5> Stylized Lighting Model</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								The first graph shows the basic workflow of the lighting model: The model first gets the GI data, followed by a optional stylization layer. Then it enters the main lighting loop where the base diffuse and BRDF is calculated for each light source based on the parameters that artists provide. Finally another layer is applied to control the style of specular.
+							</p>
+							<p>
+								The model supports traditional material data such as metal and smoothness. But the main stylization part is controlled by more complex data structures: the diffuse map, specular diffuse map and specular resample map. Artists can create those maps in 2D art softwares (Photoshop...) and the final stylized lighting (in CV terms: the foreshortening, the BRDF) as well as the specular shape is created by sampling light over these maps.
+							</p>
+							<p>
+								Each sub-component is implemented separately and has no dependence. Therefore can be easily upgraded for more features.
+								It is the core part that makes the lighting model a "general" model.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-light.png" alt="" /></span>
+							<span class="image fit"><img src="images/Klm/code-light2.png" alt="" /></span>
+						</div>
+					</div>
+
+
+					<u><h5> Stylized Shadow</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								Similar to the lighting model, the shadow model also samples from a shadow texture map to decide the final shadow pattern. It could be easily observed in demo3, especially the last part: the stripe shaped shadow of the character.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-shadow.png" alt="" /></span>
+						</div>
 					</div>
 
 					
+					<u><h5> Stylized Outline</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								This is the (mathematically) most complex and difficult part, and I only shows the steps here in the screenshot due to its length.
+								It works by using depth and normal data from textures in the previous step, processing this data through Sobel convolution matrices to detect changes in depth and normals (edges), and then using this information to generate outlines.  The code ensures that the complex process of edge detection and outline generation is done efficiently.
+							</p>
+							<p>
+								Then the outline information could be directly apply as black lines. The component also supports further processes, such as change the color and thickness, or even apply other texture maps over it. 
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-outline.png" alt="" /></span>
+						</div>
+					</div>
+					
+					<u><h5> Blending Rules</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								Blending rule defines how a transparent object show blend with its background. Different types of objects (say, water vs firework) and different art styles use different blending rules. Here I built a framework that improves the efficiency for rule editing, as well as created four basic ones: the alphaBlend, Premultiplied, Additive and Multiplied.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/Klm/code-blending.png" alt="" /></span>
+						</div>
+					</div>
 
 
-
+					<br>
+					<p>FIN.</p>
 				</div>
 
+				
+
 			</section>
+
 		</div>
 
 

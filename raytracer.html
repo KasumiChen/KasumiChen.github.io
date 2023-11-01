@@ -195,9 +195,9 @@
 						<div class="col-6 col-12-small">
 							<p>The Transform class is used across different types of data and there are two types of transforms that need to implement differently: the vector and the point; 
 								<br>
-								To transform a vector, I implemented a linear transformation by matrix in the <b> Euclidean space </b>. However, transforming a point is different as the position itself will shift. To achieve it the transformation is done in <b>homogenuous coordinates </b>with a 4x4 matrix.
+								To transform a vector, I implemented a linear transformation by matrix in the <b> Euclidean space </b>. However, transforming a point is different as the position itself will shift. To achieve it the transformation is done in <b>homogenous coordinates </b>with a 4x4 matrix.
 								<br>
-								With the two basic functions I implemented transformation for rays, normals, meshes... I also implmented useful features such as inverse and so on.
+								With the two basic functions I implemented transformation for rays, normals, meshes... I also implemented useful features such as inverse and so on.
 							</p>
 						</div>
 						<div class="col-6 col-12-small">
@@ -212,7 +212,7 @@
 					<div class="row">
 						<div class="col-4 col-12-small">
 							<h4>Sphere</h4>
-							<p>To calculate ray hit I used ray-sphere intersection algorithm as shown on the right. The corrsponding surface normal will then be the connecting vector from the center to the hit point. To get UV coordinates I transform <b>Euclidean coordinates</b> to <b>Sphereical coordinates </b> and use the corresponding parameters : phi and theta, to be the UV coordinates. 
+							<p>To calculate ray hit I used ray-sphere intersection algorithm as shown on the right. The corresponding surface normal will then be the connecting vector from the center to the hit point. To get UV coordinates I transform <b>Euclidean coordinates</b> to <b>Spherical coordinates </b> and use the corresponding parameters : phi and theta, to be the UV coordinates. 
 							</p>
 						</div>
 						<div class="col-4 col-12-small">
@@ -225,7 +225,7 @@
 					<div class="row">
 						<div class="col-4 col-12-small">
 							<h4>triangle</h4>
-							<p>To achieve ray-triangle intersection I implemented the <b> Möller-Trumbore test </b>. To get the UV coordinates I transform the Euclidean coordinates to <b>barycentric coordinates</b> and get the UV from interpolating the alpha nad beta paramteres.
+							<p>To achieve ray-triangle intersection I implemented the <b> Möller-Trumbore test </b>. To get the UV coordinates I transform the Euclidean coordinates to <b>barycentric coordinates</b> and get the UV from interpolating the alpha nad beta parameters.
 							</p>
 						</div>
 						<div class="col-4 col-12-small">
@@ -239,12 +239,12 @@
 
 					<u><h3>Materials and BRDF</h3></u>
 
-					Materials is a huge part and the most important part in ray tracing. There are two main parts: the specular behavior of material (such as reflection and refraction) and the BRDF (the microfacet structure, modelled by various mathmetical models such as blinn-phong). Other small but also important features are also implemented such as texture mapping ...
+					Materials is a huge part and the most important part in ray tracing. There are two main parts: the specular behavior of material (such as reflection and refraction) and the BRDF (the microfacet structure, modelled by various mathematical models such as blinn-phong). Other small but also important features are also implemented such as texture mapping ...
 					<br><br>
 					<div class="row">
 						<div class="col-4 col-12-small">
 							<h4>Specular Behavior</h4>
-							<p>Speculat behaviors mainly contains reflection and refractions, which are discribed in the Fresnel model. The model quantifies the effect that there are more reflection when the ray is more orthorgonal to the normal and more refraction when the ray is parallel to the normal.
+							<p>Speculate behaviors mainly contains reflection and refractions, which are described in the Fresnel model. The model quantifies the effect that there are more reflection when the ray is more orthogonal to the normal and more refraction when the ray is parallel to the normal.
 							</p>
 						</div>
 						<div class="col-4 col-12-small">
@@ -291,7 +291,7 @@
 					</div>
 
 					<h4>Stratified Sampling Quasi Monte_carlo Sampling Sampling</h4>
-					<p>Those to sampling methods are, in essense, pseudo-random generators that proved to be able to generate better results than the randf() in C++. Here is a comparasion: (randf, i.e. independent sampling vs stri] vs quasi MC)</p>
+					<p>Those to sampling methods are, in essence, pseudo-random generators that proved to be able to generate better results than the randf() in C++. Here is a comparison: (randf, i.e. independent sampling vs stratified vs quasi MC)</p>
 					<div class="row">
 						<div class="col-4 col-12-small">
 							<span class="image fit"><img src="images/raytracer/ball-ind.png" alt="" /></span>
@@ -313,7 +313,7 @@
 						
 						<div class="col-4 col-12-small">
 							<h4>Recursive ray tracing</h4>
-							<p>The recursive ray tracing integrator is the most basic integrator. It evaluates the Render Equation by performing probablistic monte-carlo integration and simulate how light bounces in the scene. Each pixel will shoot a number of rays and accumulate color for the pixel. In the following sections I gradually added more advanced features to improve both speed and accuracy.
+							<p>The recursive ray tracing integrator is the most basic integrator. It evaluates the Render Equation by performing probabilistic monte-carlo integration and simulate how light bounces in the scene. Each pixel will shoot a number of rays and accumulate color for the pixel. In the following sections I gradually added more advanced features to improve both speed and accuracy.
 							</p>
 						</div>
 						<div class="col-4 col-12-small">
@@ -327,8 +327,8 @@
 					<div class="row">
 						<h4>Next Event Estimation + MIS + Power Heuristic</h4>
 							<p>NEE and MIS are commonly used together to reduce variance of rendered image.
-								NEE is implemented by spliting the ray into two parts at every intersection. One is sampled based on the BRDF and the other is sampled over the lights. MIS, on the other hand, is the method of blending the two attenuations based on their PDF.
-								Here are the comparasion among recular ray tracing, NEE only and NEE+MIS. 
+								NEE is implemented by splitting the ray into two parts at every intersection. One is sampled based on the BRDF and the other is sampled over the lights. MIS, on the other hand, is the method of blending the two attenuations based on their PDF.
+								Here are the comparison among regular ray tracing, NEE only and NEE+MIS. 
 							</p>
 						<div class="col-4 col-12-small">
 							<span class="image fit"><img src="images/raytracer/veach_mats.png" alt="" /></span>
@@ -360,7 +360,7 @@
 					<br>
 					<u><h3>Advance Topics</h3></u>
 
-					In the final project I implemented advanced features from recent SIGGRAPH papers: position-free Monte-Carlo Sampling (for layered materials and BSSRDF) and spectral rendering. Each of it is a huge topic itself and deserves seperate discussion. Here is the 
+					In the final project I implemented advanced features from recent SIGGRAPH papers: position-free Monte-Carlo Sampling (for layered materials and BSSRDF) and spectral rendering. Each of it is a huge topic itself and deserves separate discussion. Here is the 
 					<a href="https://drive.google.com/file/d/1rs73OcjrKAtQGq0Fb5qhFusgnjJDXSPg/view?usp=sharing">Technical Report</a> I wrote to introduce the features in detail.
 
 				</div>
