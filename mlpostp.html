@@ -48,21 +48,108 @@
 						<h1>Unity Neural Network Rendering</h1>
 					</header>
 					
-					<h2 id="content">Introduction</h2>
+					<h2 id="content">Introduction & Motivation</h2>
+
+					<p>
+						With the emergence of AI and its increasing importance in the game industry, I believe the ability to build, modify and integrate AI into existing game pipelines will be the crucial skill for future technical artists due to our the interdisciplinary nature.
+						My proficiency in AI theories and neural network programming positions me at the frontier of integrating AI with digital art. 
+
+					</p>
 
 					<p>
 
-						I'm perhaps among the <b> first group of technical artist in the world (!) </b> that experiments on Neural Network Rendering in Unity, 
-						using the internal beta package Sentis (Previously known as Barracuda). It is designed to be the neural network interface for Unity.
+						I'm perhaps among the <b> first group of technical artist in the world (!) </b> that experiments on Neural Network Rendering in Unity as an Unity AI internal beta tester, 
+						using the internal beta package Sentis. It is designed to be the neural network interface for Unity.
 						<br>
 						In the work I added a Tensorflow VAE neural network to the unity's default render pipeline, so that I could achieve <b> arbitrary style transfer in real time</b> 
 						given a style reference image.
 						 
 					</p>
 
+
+					<h2 id="content">Model Architecture & Optimization</h2>
+
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								I edited the <a href="https://www.tensorflow.org/tutorials/generative/style_transfer">Tensorflow Style Transfer Model</a>  and recompiled it into Open Neural Network Exchange (.onnx) format, the format that Unity Supports. The model takes a source image (which will be the rendered scene in Unity), as well as a style reference image. The mode will transform the source image into the art style of the reference image. The Architecture of the model (with some abstraction) is shown on the right.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/mlpostp/arch0.png" alt="" /></span>
+						</div>
+						<div class="col-6 col-12-small">
+							<p>
+								In the original architecture each full neural network query will execute a encoding of source + style reference, then a decoding network in every frame. Yet I noticed that as the style reference image is fixed, the embedding of the style should also be fixed in this specific model. Therefore the style reference encoding only need to be executed once at initialization, and the embedding can be saved in the model. It almost increases the speed by 30%!. Here is the modified architecture:
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/mlpostp/arch.png" alt="" /></span>
+						</div>
+					</div>
+
+
+					<h2 id="content">Unity Integration</h2>
+
+					<p>Various step needs to be done to make the model run in Unity. I hereby pickup some key functions to demonstrate and explain:</p>
+
+					<u><h5> Creating Worker</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p> Unity use a "worker" to build data pipeline between CPU and GPU, as well as manage asynchronous execution of GPU.
+								The developer has to manually create and delete workers (Otherwise there will be memory leak!!).
+								Here I created the worker with necessary parameters, and also run the worker once to initialize some internal data and memory allocation, a step recommended by Unity.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/mlpostp/code1.png" alt="" /></span>
+						</div>
+					</div>
+
+					<u><h5> Style Encoding</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								This is where I calculate the style embedding at initialization and save it as intermediate data to accelerate the model query speed. 
+								The datatype for ML data in Unity is Sentis Tensor. Similar to workers, we also need to manually create and delete tensors with care to prevent memory leak and null pointer errors.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/mlpostp/code2.png" alt="" /></span>
+						</div>
+					</div>
+
+					<u><h5> Realtime AI Query</h5></u>
+					<div class="row">
+						
+						<div class="col-6 col-12-small">
+							<p>
+								The function is a Unity-defined function that, by overloading the function, we can create custom post processing effects in the default render pipeline.
+								Here the rest encoder network and decoder network is merged into one that takes the source image and pre-calculated style embedding as inputs. 
+								The resulted tensor is processed as a texture then "blit" to the screen.
+							</p>
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/mlpostp/code3.png" alt="" /></span>
+						</div>
+					</div>
+
+
+
+
 					<h2 id="content">Demo</h2>
 
+					<p> First I tried to render some static images on Canvas in Unity to make sure the model works. The left is the source image, the right is the out put image, 
+						and the image in the bottom right corner is the style reference:
+					</p>
 
+					<span class="image fit"><img src="images/mlpostp/static0.png" alt="" /></span>
+					<span class="image fit"><img src="images/mlpostp/static1.png" alt="" /></span>
+
+					<p> Then I tested the results in actual scenes with different styles references. I imported a simple mountain scene in Unity (credit to Unity asset store!): </p>
 
 					<div class="box alt">
 						<div class="row gtr-50 gtr-uniform">
@@ -74,10 +161,9 @@
 							<div class="col-6"><span class="image fit"><img src="images/mlpostp/1.5.gif" alt="" /></span></div>
 						</div>
 					</div>
-					
-					<h2 id="content">Pipeline Architecture</h2>
-					<span class="image fit"><img src="images/mlpostp/arch.png" alt="" /></span>
 
+
+					<p>Fin.</p>
 
 				</div>
 			</section>
