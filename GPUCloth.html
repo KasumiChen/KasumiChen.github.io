@@ -11,6 +11,23 @@
 	</noscript>
 </head>
 
+<style>
+	.video-container {
+	  position: relative;
+	  padding-bottom: 56.25%; /* 16:9 aspect ratio (height:width) */
+	  height: 0;
+	  overflow: hidden;
+	}
+  
+	.video-container iframe {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	}
+  </style>
+
 <body class="is-preload">
 
 	<!-- Wrapper -->
@@ -53,27 +70,25 @@
 										<p>This was originally the mini-project 2 of my course 15664: Technical Animation taken at CMU. 
 											Instead of simply making a demo in AMC Viewer, I decided to take this chance to make an actual cloth simulation system usable for my future games. 
 										</p> -->
-					<h2 id="content">Introduction</h2>
+					<h2 id="content">Introduction & Motivation</h2>
 
 
 					<div class="row">
-						<div class="col-6 col-12-small">
-							<h3>Intro</h3>
-							<p>This was originally the mini-project 2 of my course 15664: Technical Animation taken at
+							<p>Physics simulation is a important skill, but very challenging for technical artists, as it requires high level of proficiency in mathematics and programming.
+								This was originally the course project of my course 15664: Technical Animation taken at
 								CMU.
-								I decided to take this chance to make an actual cloth simulation system usable for my
+								I decided to take this chance to make an extensible cloth simulation system for my
 								future games.
-							</p>
-							<p>
-								The project demonstrate my understanding in Unity development, GPU architecture and
+								The project demonstrate my understanding in Unity development, GPU side development and
 								programming
-								as well as my mathematical background in physics simulation.
+								as well as my mathematical background in physics simulation and animation.
 							</p>
-						</div>
-						<div class="col-6 col-12-small">
-							<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/GUcVHez52Ro"
-								frameborder="0" allowfullscreen></iframe>
-						</div>
+					</div>
+
+					<h2 id="content">Demo</h2>
+					<div class="video-container">
+						<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/GUcVHez52Ro"
+							frameborder="0" allowfullscreen></iframe>
 					</div>
 
 					<hr>
@@ -101,116 +116,133 @@
 
 					</div>
 
+					<h2 id="design">Architecture</h2>
+					<span class="image fit"><img src="images/cloth/arch.png" alt="" /></span>
+
 					<hr>
 
-					<h2 id="design">Design and Development</h2>
+					<h2 id="design">Implementation</h2>
 
 					<!-- Elements -->
+					<h3>Cloth Model</h3>
+					<p>The cloth simulation is based on mass spring system, with 3 types of spring pairs
+						shown by the graph. When the cloth is deformed, the internal force is calculated based on the spring forces. 
+					</p>
 					<div class="row">
-						<div class="col-6 col-12-small">
-							<h3>Cloth Model</h3>
-							<p>The cloth simulation is based on mass spring system, with 3 types of spring-drag pairs
-								shown by the graph on the right:
-							</p>
-						</div>
 						<div class="col-6 col-12-small">
 							<span class="image fit"><img src="images/mass-spring.png" alt="" /></span>
 						</div>
+						<div class="col-6 col-12-small">
+							
+							<span class="image fit"><img src="images/cloth/spring_impl.png" alt="" /></span>
+						</div>
 					</div>
 
+					<h3>Handling Collisions and Pins</h3>
+					<p>I implemented GPU based collision detection using ray-object intersection detection.
+						It currently supports unity's inherent sphere objects and can read the transform
+						automatically from the sphere.
+						The ray is derived from the current and next position of a vertex. If the ray reaches to
+						the inside of the sphere, I calculate P and bring the vertex back to P. I also reflect
+						the velocity based on surface normal and multiply with Cor for energy loss; Pins are
+						special spheres that can fix the position of vertices within it. With Pins I can achieve
+						the flag effect easily.
+					</p>
 					<div class="row">
-						<div class="col-6 col-12-small">
-							<h3>Handling Collisions and Pins</h3>
-							<p>I implemented GPU based collision detection using ray-object intersection detection.
-								It currently supports unity's inherent sphere objects and can read the transform
-								automatically from the sphere.
-								The ray is derived from the current and next position of a vertex. If the ray reaches to
-								the inside of the sphere, I calculate P and bring the vertex back to P. I also reflect
-								the velocity based on surface normal and multiply with Cor for energy loss; Pins are
-								special spheres that can fix the position of vertices within it. With Pins I can achieve
-								the flag effect easily.
-							</p>
-						</div>
 						<div class="col-6 col-12-small">
 							<span class="image fit"><img src="images/raysphereisect1.png" alt="" /></span>
 						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/cloth/collision_impl.png" alt="" /></span>
+						</div>
 					</div>
 
-
+					<h3>Drag Models</h3>
+					<p>I also implemented wind resistance to the cloth based on the aerodynamics equations,where
+						the velocity is the relative velocity between the vertex and the wind, and the A value
+						is the surface area x sine of the wind angle. The parameter WindVelocity specifies the
+						to properties.</p>
 					<div class="row">
 						<div class="col-6 col-12-small">
-							<h3>Wind Models</h3>
-							<p>I also implemented wind resistance to the cloth based on the aerodynamics equations,where
-								the velocity is the relative velocity between the vertex and the wind, and the A value
-								is the surface area x sine of the wind angle. The parameter WindVelocity specifies the
-								to properties.
-							</p>
+							<span class="image fit"><img src="images/cloth/drageq.jpg" alt="" /></span>
 						</div>
 						<div class="col-6 col-12-small">
-							<span class="image fit"><img src="images/drageq.gif" alt="" /></span>
+							<span class="image fit"><img src="images/cloth/drag_impl.png" alt="" /></span>
 						</div>
 					</div>
 
 					<div>
-						<h3>Integrators</h3>
-						<p>I implemented four different integrators: Euler, Implicit Euler, Leap Frog and Verlet
+					<h3>Integrators</h3>
+					<p>I implemented four different integrators: Euler, Implicit Euler, Leap Frog and Verlet:
+						the Euler's are more traditional ones and the rest are more complex ones. 
+						But as physics simulation is a complex system, there is really no "best method", different
+						integrators excels in different scenarios.  
+					</p>
+					<div class="row">
+						<div class="col-6 col-12-small">
+							<h5>Euler</h5>
+							<p>y<sub>n+1</sub> = y<sub>n</sub> + h &middot; f(t<sub>n</sub>, y<sub>n</sub>)</p>
+		
+							<h5>Implicit Euler:</h5>
+							<p>y<sub>n+1</sub> = y<sub>n</sub> + h &middot; f(t<sub>n+1</sub>, y<sub>n+1</sub>)</p>
+		
+							<h5>Leap Frog:</h5>
+							<p>v<sub>n+1/2</sub> = v<sub>n</sub> + (h / 2) &middot; a(t<sub>n</sub>, y<sub>n</sub>)</p>
+							<p>y<sub>n+1</sub> = y<sub>n</sub> + h &middot; v<sub>n+1/2</sub></p>
+							<p>v<sub>n+1</sub> = v<sub>n+1/2</sub> + (h / 2) &middot; a(t<sub>n+1</sub>, y<sub>n+1</sub>)</p>
+		
+							<h5>Verlet</h5>
+							<p>y<sub>n+1</sub> = 2y<sub>n</sub> - y<sub>n-1</sub> + h<sup>2</sup> &middot; a(t<sub>n</sub>, y<sub>n</sub>)</p>
+		
+						</div>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/cloth/integrator_impl.png" alt="" /></span>
+						</div>
+					</div>
 
-							While all the other three works fine, the Euler has random bugs. I located it at the vertex
-							(0,0,0) in local space. I found I have to put a pin or a collider there (basically to either
-							remove it from integration process or push it aside to make the value non-zero). Otherwise,
-							the values will quickly become NaN. I suspect there is some divide by zero bug, but I still
-							have not locate it. (GPU program is too hard to debug as I'll mention later.)
-						</p>
+					
+
 
 					</div>
 
 
 					<div>
-						<h3>GPU Parallelization</h3>
+						<h3>GPU - CPU communication</h3>
 						<p>Unity uses "Compute Shader" for GPU coding and use "Compute Buffer" for GPU-CPU
 							communication. Unlike "Surface Shaders" that only run within a render pipeline, the Compute
 							Shader allows us to execute whatever code we want on GPU. As Unity is notoriously infamous
 							for its poor documentation and it was the first time for me to use it, I went through all
 							the videos and forums for tutorials, and also read through a bunch of GPU codes on Github
 							for reference.... </p>
-						<p>
-							On CPU side, it initializes the mesh and the parameters, packs them up and sends the data to
-							GPU for calculation. Then it retrieves the data to update the mesh.
+						<div class="row">
+							<div class="col-6 col-12-small">
+								<p>
+									Most of the computation is done in GPU.
+									On CPU side, it initializes the mesh and the parameters, packs them up and sends the data to
+									GPU for calculation. Then it retrieves the data to update the mesh.
+		
+									On GPU side, I created three Kernels: the cloth model kernel, the wind resistance kernel and
+									the integrator kernel, where the integrator kernel also handles collisions. The reason for
+									that is the wind resistance kernel requires different number of threads (#triangles) than
+									the other two (#vertices).
+								</p>
+								<p>
+		
+									For buffers, I created position buffer, force buffer, velocity buffer and triangle buffer
+									for each type of data, Also Collider and pin buffer to dynamically change the state of
+									colliders and pins in runtime.
+									<br>
+									As the GPU program knows only the "current state" of vertices, I also added a custom buffer
+									for storing preview state of either acceleration or position required by leap-frog and
+									Verlet integrators.
+								</p>
+							</div>
+							<div class="col-6 col-12-small">
+								<span class="image fit"><img src="images/cloth/buffers.png" alt="" /></span>
+							</div>
+						</div>
 
-							On GPU side, I created three Kernels: the cloth model kernel, the wind resistance kernel and
-							the integrator kernel, where the integrator kernel also handles collisions. The reason for
-							that is the wind resistance kernel requires different number of threads (#triangles) than
-							the other two (#vertices).
-						</p>
-						<p>
 
-							For buffers, I created position buffer, force buffer, velocity buffer and triangle buffer
-							for each type of data, Also Collider and pin buffer to dynamically change the state of
-							colliders and pins in runtime.
-							<br>
-							As the GPU program knows only the "current state" of vertices, I also added a custom buffer
-							for storing preview state of either acceleration or position required by leap-frog and
-							Verlet integrators.
-						</p>
-
-						<p>
-
-							GPU programs are hard to code but harder to debug, as you can do print on GPU side, it does
-							not have memory protection and not telling you about segment fault sometimes.... what's
-							worse, there are lots of floating-point errors and corner cases..... I have to do static
-							analysis and figure out the cause of the bug manually.
-
-							<br>
-
-							I found I have a lot of if/else in my code but I heard it's not a good practice to use them
-							in GPU code. So, to further optimize the code I tried to limit the use of if/else, or use if
-							{...} return; instead of if{...}else{...}return. It is because, after some research I found
-							the reason for not using if/else is that GPU does not do branching, a thread entering the
-							"else" part will wait for others to finish executing the "if" part, the others will wait the
-							thread again for the "else" execution. Therefore using if/else lowers the performance by
-							half but only having a if{}return is fine, as the threads do not need to wait each other in
-							turns.
-						</p>
 
 					</div>
 				</div>
