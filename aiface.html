@@ -53,15 +53,13 @@
 										<p>This was originally the mini-project 2 of my course 15664: Technical Animation taken at CMU. 
 											Instead of simply making a demo in AMC Viewer, I decided to take this chance to make an actual cloth simulation system usable for my future games. 
 										</p> -->
-					<h2 id="content">Introduction</h2>
+					<h2 id="content">Introduction & Motivation</h2>
 
 
 					<div class="row">
 						<div class="col-8 col-12-small">
-							<p>This was the final project for the course 15-664: Technical Animation, at CMU. In this
-								project, I developed a Blender Add-on that enables users to animate facial expressions
+							<p>In this project, I developed a Blender Add-on that enables users to animate facial expressions
 								for characters.
-								<br>
 								With this Add-on, users can create the character's facial animation by connecting a
 								rigged model to it and utilizing their laptop's camera to capture their own facial
 								movements and expressions with our Add-on's built-in neural network.
@@ -71,8 +69,9 @@
 								eyelid movement, brow movement, jaw and lip movements… Additionally, I have included
 								various parameters that users can customize to tailor the Add-on's functionality to
 								their liking.
-								<br><br>
+								<br>
 								(Btw I am the actor for all the motion captures here lol)
+								<p>There are three main reasons for me to create this project:</p>
 							</p>
 						</div>
 						<div class="col-4 col-12-small">
@@ -80,118 +79,103 @@
 						</div>
 					</div>
 
+					
+					<div class="row">
+						<div class="col-4 col-12-medium">
+							<h5>Artificial Intelligence's Influence on Art and Technical Artists</h5>
+							<p>AI's role in art, particularly in animation, is growing rapidly. Advanced AI models like DALLE, MidJourney, GPT-3, and Stable Diffusion are creating realistic images and animations. This shift promises to make animation production more efficient and cost-effective. My project explores the intersection of AI and traditional animation, marking my first step in this research area.
+							</p>
+						</div>
+						<div class="col-4 col-12-medium">
+							<h5>Facial Animation's Significance in Gaming and Media </h5>
+							<p>Facial animations are vital in games and films, making characters more lifelike and emotionally relatable. Traditionally labor-intensive, new deep learning techniques and face landmark detection are simplifying the creation of realistic facial expressions. This evolution, exemplified by the rise of Virtual YouTubers like Hololive, has made animation more accessible and dynamic. I aim to deepen my knowledge and skills in facial animation by developing a tool for this purpose.
+							</p>
+						</div>
+						<div class="col-4 col-12-medium">
+							<h5>Technical Artist's Role in Art Pipeline and Tool Development </h5>
+							<p>For technical artists, mastering art pipeline and tool creation is crucial. I'm focusing on learning Blender's technical aspects and its Python scripting API to create a Blender Add-on, enhancing my practical skills. Additionally, recognizing the lack of community-based facial animation tools for indie game developers, I aspire to lay the groundwork for an open-source facial animation tool, fostering collaboration and usage within the community.
+							</p>
+						</div>
+					</div>
+
 					<h2 id="content">Component Demo</h2>
 					<div class="box alt">
 						<div class="row gtr-50 gtr-uniform">
 							<div class="col-3"><span class="image fit"><img src="images/aiface/brow.gif" alt="" />
-								<div class="caption">Brow Movement</div></span></div>
+								<div class="captionp">Brow Movement</div></span></div>
 							<div class="col-3"><span class="image fit"><img src="images/aiface/head.gif" alt="" />
-								<div class="caption">Head Movement</div></span></div>
+								<div class="captionp">Head Movement</div></span></div>
 							<div class="col-3"><span class="image fit"><img src="images/aiface/eyelid.gif" alt="" />
-								<div class="caption">Eyelid Movement</div></span></div>
+								<div class="captionp">Eyelid Movement</div></span></div>
 							<div class="col-3"><span class="image fit"><img src="images/aiface/mouse.gif" alt="" />
-								<div class="caption">Mouth Movement</div></span></div>
+								<div class="captionp">Mouth Movement</div></span></div>
 						</div>
 					</div>
 
 					<hr>
-					<h2>Motivation</h2>
 
-					<div>
-						<div>
-							<h4>The impact of Artificial Intelligence on art and technical artists</h4>
-							<p>In recent years, there has been a trend towards using AI in the art pipeline and art
-								asset creation for animation. This trend has been driven by the emergence of powerful AI
-								models such as DALLE, MidJourney, GPT-3, and Stable Diffusion, which have demonstrated
-								their ability to generate highly realistic and detailed images and animations.</p>
-							<P>The use of AI in the art pipeline and art asset creation for animation has great
-								potential to streamline the production process, increase efficiency, and reduce costs.
-								Therefore, I decided to take this project as a first step to my further research on the
-								combination of Artificial Intelligence and traditional work of an animator and technical
-								artist.</P>
-						</div>
+					<h2>Project Architecture</h2>
 
-						<div>
-							<h4>The importance of Facial Animation in Games</h4>
-							<p>Facial expression animation plays a crucial role in the games, films and other types of
-								media as they bring characters to life and help viewers and players connect with them on
-								a deeper emotional level. It can enhance the storytelling experience by allowing
-								characters to express their thoughts and feelings non-verbally, adding nuance and depth
-								to their interactions, leading to more immersive gameplay and a deeper connection to the
-								story. Traditionally, animating facial expressions was a time-consuming process using
-								keyframing or motion capture. However, with deep learning and face landmark detection,
-								animators can now create highly realistic and dynamic facial animations more easily.
-								This approach provides more precise control and reduces manual work. It also allows for
-								live-streaming a character online with the performer in the background, as seen in the
-								rise of the "Virtual Youtuber" (Vtuber) industry, such as Hololive.</p>
-							<p>
-								Therefore, I decided to take the chance to learn, and develop my understanding in the
-								workflow for facial expression animation. Creating an actual tool for such animation is
-								a great practice and test of my learning.
-							</p>
-						</div>
+					<span class="image fit"><img src="images/aiface/arch.png" alt="" /></span>
 
-						<div>
-							<h4>Technical Artist's role in Art Pipeline and Tool Creation</h4>
-							<p>Art pipeline and art tool creation is also an essential skill for technical artists.
-								Therefore I decided to take the chance to study the technical details of 3D modeling
-								software Blender and Blender Python scripting API. Creating an Add-on for blender is a
-								great way to practice the knowledge I learned.</p>
-							<p>Moreover, as an independent game developer, I commonly found that there are few
-								community-based facial animation tools for independent game studios to use. Therefore, I
-								want to build some foundations for an open-source facial animation tool for people to
-								contribute and use.</p>
-						</div>
-						<!-- Break -->
 
-					</div>
+					<h2>Implementation</h2>
 
-					<hr>
+					Here I introduce the Implementation of the core features:
 
-					<h2>Technical Overview</h2>
-
+					<h3>Control Panel</h3>
 					<div class="row">
-						<div class="col-4 col-12-medium">
-							<h3>AI detection module. </h3>
-							<p>The module is used to capture realtime landmark on faces. It can access the camera of the
-								user's device and generates 68 facial landmark following the Dlib standards, as well as
-								head pose and gaze direction, as the data source for control the character's face model.
-							</p>
+					
+						<div class="col-4 col-12-small">
+							The control panel is the user interface in blender, where I allow the user to fine-tune the
+							motion capture weights to fit characters of different sizes and shape. In contrast, Users with different shape ans size of faces can also use the parameters to tune the the system to make the same facial movement of the users have the same impact over the characters.
 						</div>
-						<div class="col-4 col-12-medium">
-							<h3>Communication module. </h3>
-							<p>The module is to enable communication between machine learning models and Blender. I used
-								socket communication and implemented a protocol for the communication to ensure
-								communication speed and accuracy.
-							</p>
+						<div class="col-2 col-12-small">
+							<span class="image fit"><img src="images/aiface/panel.png" /></span>
 						</div>
-						<div class="col-4 col-12-medium">
-							<h3>Retargeting module. </h3>
-							<p>This module would map the landmark data to the rig on the
-								face mesh. I used the scripting feature provided by Blender and created a retargeting
-								schema and algorithm for our demo character, and I expect it is easily extensible to
-								other characters, so that our add on may be used directly by existing models and
-								solutions.
-							</p>
+						<div class="col-6 col-12-small">
+							<span class="image fit"><img src="images/aiface/panel_code.png" /></span>
 						</div>
 					</div>
 
-					<hr>
 
-					<h2>A Comparison with Existing Methods</h2>
+					<h3>Openface Subprocess</h3>
+					<p>
+						A subprocess is initiated to launch a C++ openface instance to extract facial feature points shown in graph below. Then the data is sent between processes back to Blender through sockets.
+					</p>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/aiface/openpose code.png" alt="" />
+								<img src="images/aiface/network.png" alt="" /></span>
 
-					<p>There are a few existing tools in the blender market that also use machine learning to capture
-						human facial expressions and retarget them to characters. However, the key difference is that
-						they used another technique referred to as “blender shape” or “shape keys”. This method requires
-						the user to create different facial expressions manually (or with the help of other tools) as
-						the basis of animation. The landmark data is not used to control the bones, but to perform
-						(linear) combinations over the basis to form compounded facial expressions. Such a method allows
-						for more controlled and stable animation results. However, the user must first create the shape
-						keys as the basis for animation. The method also captures less detailed movements on the face
-						muscles as it does not control the bones directly.</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/aiface/facial_landmarks_68markup.jpg" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/aiface/aidetect.png" alt="" /></span>
+						</div>
+					</div>
+
+					<h3>Retargeting</h3>
+					<div class="row">
+						<div class="col-4 col-12-small">
+							<p>
+								The feature points are finally retargeted to the prebuilt armature control nodes on the model. The feature points are first classified to represent different parts, then interpolated to the final movement.<br> 
+								To gain stability and stable transitions in live animation, I used the Sliding Window Average to pre-process the data.
+							</p>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/aiface/retargetmodel.png" alt="" /></span>
+						</div>
+						<div class="col-4 col-12-small">
+							<span class="image fit"><img src="images/aiface/retarget_code.png" alt="" /></span>
+						</div>
+					</div>
+
+					<p>Fin.</p>
 
 				</div>
-
 			</section>
 		</div>
 
